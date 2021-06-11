@@ -1,0 +1,85 @@
+<html>
+
+<title>Graph Model</title>
+
+<h2>Nodes Ordering</h2>
+
+
+<p><b>Nodes Order is =  </b><span id="demo1"></span></p>
+
+
+<script>
+
+/* 
+
+
+var nodes_details = { 1:{ to:['2','5'] , from:[] } , 2:{ to:['3','7'] , from:['1'] } , 3:{ to:['4'] , from:['2'] } , 4:{ to:['6','7'] , from:['3'] } , 
+
+			  5:{ to:[] , from:['1'] } , 6:{ to:[] , from:['4','7'] } , 7:{ to:['6'] , from:['2','4'] } };
+
+			
+			
+var nodes_details = { 1:{ to:['2','5'] , from:[] } , 2:{ to:['3','7'] , from:['1'] } , 3:{ to:['4'] , from:['2'] } , 4:{ to:['6','7'] , from:['3'] } , 
+
+			  5:{ to:[] , from:['1'] } , 6:{ to:['7'] , from:['4'] } , 7:{ to:['6'] , from:['2','4','7'] } };
+			  
+																																							*/
+var nodes_details = { 1:{ to:['2','5'] , from:[] } , 2:{ to:['3','7'] , from:['1'] } , 3:{ to:['4'] , from:['2'] } , 4:{ to:['6','7'] , from:['3'] } , 
+
+			  5:{ to:[] , from:['1'] } , 6:{ to:[] , from:['4','7'] } , 7:{ to:['6'] , from:['2','4'] } };
+	  
+			  
+
+//var nodes = ['7','6','5','4','3','2','1'];
+
+var nodes = Object.keys(nodes_details);
+
+var node_count = Object.keys(nodes_details).length; 
+
+var a = 0;
+
+node_order();
+
+function node_order() {
+
+	for  ( i = a;  i < node_count; i++ ) {
+	
+		var src = nodes[i]; var to_src = nodes_details[src].to; 
+		
+		for ( j = 0; j < to_src.length; j++ ) { 
+			
+			 nxt_node = to_src[j];
+	
+			if ( !nodes.includes(nxt_node,i) ) {  continue; }
+			
+			nodes.splice( i , 0 , nxt_node ); 
+			
+			var ind = nodes.lastIndexOf(nxt_node);
+			
+			nodes.splice( ind,1);
+			
+			if ( j == to_src.length-1 && i !== node_count-1 ) { i = a; node_order(); }
+			
+			 
+
+		}
+		
+		
+	} 
+	
+}; 
+
+console.log(nodes);
+
+
+document.getElementById("demo1").innerHTML = nodes.reverse();
+
+console.time();
+console.timeEnd();
+
+</script>
+
+</html>
+
+
+
